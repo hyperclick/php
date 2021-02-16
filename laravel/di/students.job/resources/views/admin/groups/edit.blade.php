@@ -9,19 +9,17 @@
         <div class="table-responsive">
             <div class="table-wrapper">
 
+                    @include('components.form.select', ['name' => 'place', 'required' => true, 'label' => 'Учебное заведение',  'options' => $places, 'selected' => $place->id ])
                 <form action="/admin/groups/edit/{{ $group->id }}" method="POST">
                     @csrf
 
+
+                    
+                    @include('components.form.select', ['name' => 'faculty_id', 'required' => true, 'label' => 'Факультет', 'options' => [], 'selected' =>$faculty->id ])
+
                     @include('components.form.input', ['name' => 'number', 'required' => true, 'label' => 'Номер группы', 'type' => 'text', 'value' => $group->number])
 
-
-                    @include('components.form.select', ['name' => 'place', 'required' => true, 'label' => 'Учебное заведение', 'value' => $place->title, 'options' => $places, 'selected' => $place->id ])
-                    
-                    Факультет
-                    {{ $faculty->title }}
-
                     Студенты
-                    {{dd($students)}}
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg">Изменить</button>
@@ -29,11 +27,15 @@
                 </form>
             </div>
         </div>
+        
     </div>
 @endsection
 
 @prepend('hidden')
     <input type="hidden" id="data" value="{{ $faculties }}">
+@endprepend
+@prepend('hidden')
+    <input type="hidden" id="selected_faculty_id" value="{{ $faculty->id }}">
 @endprepend
 
 @prepend('scripts')

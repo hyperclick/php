@@ -29,7 +29,7 @@ class HomeController extends Controller
             $item->age = ($item->birthday) ? Carbon::parse($item->birthday)->age : '-';
             $item->places = implode(', ', $item->place()->map->toArray()->map->title_abbr->toArray());
         });
-
+        
         # возвращаем страницу panel с передачей в неё переменной users
         return view('panel', compact('users'));
     }

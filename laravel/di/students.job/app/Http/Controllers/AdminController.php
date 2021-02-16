@@ -103,12 +103,16 @@ class AdminController extends Controller
         $place = $faculty->place;
         // $places = EducationPlace::all()->map->title->toArray();
         $places = EducationPlace::all()->mapWithKeys(function($p){return [$p->id=>$p->title];})->toArray();
-        // $selected_place =                 
-        //  dd($places->toArray());
-        // return dd($places);
-        $faculties = EducationFaculty::all()->map->title->toArray();
+        $faculties = EducationFaculty::all();
 
         return view('admin.groups.edit', compact('group', 'students', 'faculty', 'place', 'places', 'faculties'));
+    }
+
+    public function editGroup(Request $request, int $group_id)
+    {
+        EducationGroup::query()->find($group_id)->update($request->all());
+
+        return redirect()->route('admin.groups');
     }
 
     public function deleteUser(int $user_id)
